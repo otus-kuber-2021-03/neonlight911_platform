@@ -93,18 +93,19 @@ $ kubectl -n kube-system get pod kube-proxy-6gnh6 -o yaml|grep "Deployments\|Dae
 ~~~
 
 ### Задание: Создать Dockerfile в котором будет описан образ:
-1. Запускающий web-сервер на порту 8000
-2. Отдающий содержимое директории /app
-3. Файл /app/homework.html
-4. Работающий с UID 1001
-5. разместить в kubernetes-intro/web 
-6. Собрать образ и разместить его в DockerHub
+* Запускающий web-сервер на порту 8000
+* Отдающий содержимое директории /app
+* Файл /app/homework.html
+* Работающий с UID 1001
+* разместить в kubernetes-intro/web 
+* Собрать образ и разместить его в DockerHub
 
+https://github.com/otus-kuber-2021-03/neonlight911_platform/blob/kubernetes-intro/kubernetes-intro/web/Dockerfile
+
+Проброс подключения к поду
 ~~~
 kubectl port-forward --address 0.0.0.0 pod/web 8000:8000
 ~~~
-
-Проброс подключения к поду
 
 ~~~
 $ curl -v http://127.0.0.1:8000/homework.html
@@ -141,10 +142,8 @@ $ curl -v http://127.0.0.1:8000/homework.html
 Все работает!
 
 ### Hipster shop
+Экспорт описания пода
 ~~~
 kubectl run frontend --image neonligh911/hipster-shop --restart=Never --dry-run -o yaml > frontend-pod.yaml
 ~~~
-
-Экспорт описания пода
-
 Под не запускался из-за отсутсвия переменных окружений
