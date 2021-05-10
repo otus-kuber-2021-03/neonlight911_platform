@@ -8,22 +8,22 @@ spec:
   containers:
     - name: web
       image: neonlight911/otus-kuber-202103-hw:latest
-#      volumeMounts:
-#        - name: app
-#          mountPath: /app
-#      livenessProbe:
-#        tcpSocket: { port: 8000 }
-#      readinessProbe:
-#        httpGet:
-#          path: /index.html
-#          port: 80
-#  initContainers:
-#    - name: init-web
-#      image: busybox:1.31.0
-#      command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
-#      volumeMounts:
-#        - mountPath: /app
-#          name: app
-#  volumes:
-#    - name: app
-#      emptyDir: {}
+      volumeMounts:
+        - name: app
+          mountPath: /app
+      livenessProbe:
+        tcpSocket: { port: 8000 }
+      readinessProbe:
+        httpGet:
+          path: /index.html
+          port: 80
+  initContainers:
+    - name: init-web
+      image: busybox:1.31.0
+      command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
+      volumeMounts:
+        - mountPath: /app
+          name: app
+  volumes:
+    - name: app
+      emptyDir: {}

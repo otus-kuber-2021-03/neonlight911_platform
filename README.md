@@ -94,23 +94,55 @@ $ kubectl -n kube-system get pod kube-proxy-6gnh6 -o yaml|grep "Deployments\|Dae
     kind: DaemonSet
 ~~~
 
-### Задание: Для выполнения домашней работы необходимо создать Dockerfile, в котором будет описан образ
-1. Запускающий web-сервер на порту 8000 (можно использовать любой способ)
-2. Отдающий содержимое директории /app внутри контейнера (например, если в директории /app лежит файл homework.html , то при запуске контейнера данный файл должен быть доступен по URL
-http://localhost:8000/homework.html)
-3. Работающий с UID 1001
-
+### Задание: Dockerfile helloworld
 Создан Dockerfile
 Образ залит на DockerHub neonligh911/otus-kuber-202103-hw:latest
+Создан манифест, запущен под
 
-Создан файл манифеста и запущен под. Пробрасываем подключение к поду и убеждаемся в его работоспособности
-```
+~~~
 kubectl port-forward --address 0.0.0.0 pod/web 8000:8000
-```
+~~~
+
+Проброс подключения к поду
+
+~~~
+$ curl -v http://127.0.0.1:8000/homework.html
+*   Trying 127.0.0.1:8000...
+* TCP_NODELAY set
+* Connected to 127.0.0.1 (127.0.0.1) port 8000 (#0)
+> GET /homework.html HTTP/1.1
+> Host: 127.0.0.1:8000
+> User-Agent: curl/7.68.0
+> Accept: */*
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Server: nginx/1.19.10
+< Date: Mon, 10 May 2021 22:30:10 GMT
+< Content-Type: text/html
+< Content-Length: 104
+< Last-Modified: Mon, 10 May 2021 21:17:50 GMT
+< Connection: keep-alive
+< ETag: "6099a2fe-68"
+< Accept-Ranges: bytes
+< 
+<html>
+ <head>
+ </head>
+ <body>
+   <h1>Hello World<h1>
+   <h1>There is my home work<h1>
+ </body>
+* Connection #0 to host 127.0.0.1 left intact
+</html>
+~~~
+
+Все работает!
 
 ### Hipster shop
-```
+~~~
 kubectl run frontend --image neonligh911/hipster-shop --restart=Never --dry-run -o yaml > frontend-pod.yaml
-```
+~~~
+
 Экспорт описания пода
 Под не запускался из-за отсутсвия переменных окружений
