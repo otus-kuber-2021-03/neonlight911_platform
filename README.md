@@ -145,4 +145,5 @@ kubectl run frontend --image neonligh911/hipster-shop --restart=Never --dry-run 
 ~~~
 
 Экспорт описания пода
+
 Под не запускался из-за отсутсвия переменных окружений
