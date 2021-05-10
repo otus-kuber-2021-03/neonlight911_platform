@@ -7,7 +7,7 @@ neonlight911 Platform repository
 * Настроено рабочее окружение
 
 ### Задание: Разберитесь почему все pod в namespace kube-system восстановились после удаления
-Запуск агента kubelet реализован как дочерний сервис systemd:
+Запуск агента kubelet реализован как дочерний сервис **systemd**:
 
 ~~~
 # systemctl status kubelet.service
@@ -42,7 +42,7 @@ systemctl stop kubelet.service
 docker rm -f $(docker ps -a -q)
 ~~~
 
-Для возобновления работы автовосстановления, достаточно снова запустить сервис агента kubelet
+Для возобновления работы автовосстановления, достаточно снова запустить сервис агента **kubelet**
 
 ~~~~
 systemctl start kubelet.service
@@ -64,7 +64,7 @@ $ kubectl get deployments -n kube-system -o yaml|grep replicas
     replicas: 2
 ~~~
 
-**kube-apiserver** аналолгично **etcd**, **kube-controller-manager**, **kube-scheduler** запускается kubelet'ом из /etc/kubernetes/manifests/
+**kube-apiserver** аналолгично **etcd**, **kube-controller-manager**, **kube-scheduler** запускается **kubelet**'ом из **/etc/kubernetes/manifests/**
 
 ~~~
  # ls /etc/kubernetes/manifests/
@@ -142,8 +142,11 @@ $ curl -v http://127.0.0.1:8000/homework.html
 Все работает!
 
 ### Hipster shop
-Экспорт описания пода
+Выясните причину, по которой pod frontend находится в статусе Error
+
+Экспорт манифеста
 ~~~
 kubectl run frontend --image neonligh911/hipster-shop --restart=Never --dry-run -o yaml > frontend-pod.yaml
 ~~~
 Под не запускался из-за отсутсвия переменных окружений
+https://github.com/otus-kuber-2021-03/neonlight911_platform/blob/kubernetes-intro/kubernetes-intro/frontend-pod-healthy.yaml
