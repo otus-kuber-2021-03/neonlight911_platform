@@ -10,7 +10,7 @@ neonlight911 Platform repository
 Запуск агента kubelet реализован как дочерний сервис **systemd**:
 
 ~~~
-# systemctl status kubelet.service
+$ systemctl status kubelet.service
 ● kubelet.service - kubelet: The Kubernetes Node Agent
      Loaded: loaded (/lib/systemd/system/kubelet.service; enabled; vendor preset: enabled)
     Drop-In: /etc/systemd/system/kubelet.service.d
@@ -27,14 +27,11 @@ neonlight911 Platform repository
 На основании конфигурационных файлов:
 
 ~~~
-# ls -alh /etc/kubernetes/*.conf 
--rw------- 1 root root 5.5K May  5 13:48 /etc/kubernetes/admin.conf
--rw------- 1 root root 5.5K May  5 13:48 /etc/kubernetes/controller-manager.conf
--rw------- 1 root root 2.0K May  5 13:49 /etc/kubernetes/kubelet.conf
--rw------- 1 root root 5.5K May  5 13:48 /etc/kubernetes/scheduler.conf
+$ ls /etc/kubernetes/*.conf 
+admin.conf  controller-manager.conf kubelet.conf  scheduler.conf
 ~~~
 
-Где и описаны системные pods
+Где и описаны системные **pods**
 Если остановить данный сервис, автовосстановление перестанет работать
 
 ~~~
@@ -67,11 +64,11 @@ $ kubectl get deployments -n kube-system -o yaml|grep replicas
 **kube-apiserver** аналолгично **etcd**, **kube-controller-manager**, **kube-scheduler** запускается **kubelet**'ом из **/etc/kubernetes/manifests/**
 
 ~~~
- # ls /etc/kubernetes/manifests/
+$ ls /etc/kubernetes/manifests/
 etcd.yaml  kube-apiserver.yaml  kube-controller-manager.yaml  kube-scheduler.yaml
 ~~~
 
-**kube-proxy** управляется и создается посредством Daemonset (будет запускать не более одной реплики на каждом узле)
+**kube-proxy** управляется и создается посредством **Daemonset** (будет запускать не более одной реплики на каждом узле)
 
 ~~~
 $ kubectl -n kube-system get pod -l k8s-app=kube-proxy -o wide
@@ -81,7 +78,7 @@ kube-proxy-lmpnt   1/1     Running   0          3d18h   XXX.XXX.XX.XX   k8s-node
 kube-proxy-mzxz8   1/1     Running   0          3d18h   XXX.XXX.XX.XX   k8s-node2     <none>           <none>
 ~~~
 
-Принадлежномть (ownerReferences) контроллеру DaemonSet
+Принадлежномть (**ownerReferences**) контроллеру **DaemonSet**
 
 ~~~
 $ kubectl -n kube-system get pod kube-proxy-6gnh6 -o yaml|grep "Deployments\|DaemonSet" -B4
