@@ -106,7 +106,7 @@ https://github.com/otus-kuber-2021-03/neonlight911_platform/blob/kubernetes-intr
 ~~~
 kubectl port-forward --address 0.0.0.0 pod/web 8000:8000
 ~~~
-
+Проверка работоспобности
 ~~~
 $ curl -v http://127.0.0.1:8000/homework.html
 *   Trying 127.0.0.1:8000...
@@ -139,8 +139,6 @@ $ curl -v http://127.0.0.1:8000/homework.html
 </html>
 ~~~
 
-Все работает!
-
 ### Hipster shop
 Выясните причину, по которой pod frontend находится в статусе Error
 
@@ -148,5 +146,22 @@ $ curl -v http://127.0.0.1:8000/homework.html
 ~~~
 kubectl run frontend --image neonligh911/hipster-shop --restart=Never --dry-run -o yaml > frontend-pod.yaml
 ~~~
-Под не запускался из-за отсутсвия переменных окружений
+Вывод состояния pod'a
+~~~
+$ kubectl get pod frontend
+NAME       READY   STATUS   RESTARTS   AGE
+frontend   0/1     Error    0          2m29s
+~~~
+Вывод журналов pod'a
+~~~
+$ kubectl logs -f frontend
+panic: environment variable "PRODUCT_CATALOG_SERVICE_ADDR" not set
+
+goroutine 1 [running]:
+main.mustMapEnv(0xc00032e000, 0xb03c4a, 0x1c)
+	/go/src/github.com/GoogleCloudPlatform/microservices-demo/src/frontend/main.go:248 +0x10e
+main.main()
+	/go/src/github.com/GoogleCloudPlatform/microservices-demo/src/frontend/main.go:106 +0x3e9
+~~~
+В итоге pod не запускался из-за отсутсвия инициализированых переменных окружения
 https://github.com/otus-kuber-2021-03/neonlight911_platform/blob/kubernetes-intro/kubernetes-intro/frontend-pod-healthy.yaml
