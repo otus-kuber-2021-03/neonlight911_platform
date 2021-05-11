@@ -6,7 +6,7 @@ metadata:
   name: frontend
 spec:
   containers:
-  - image: neonlight911/hipster-frontend:latest
+  - image: avtandilko/hipster-frontend:v0.0.1
     name: frontend
     env:
     - name: PRODUCT_CATALOG_SERVICE_ADDR
