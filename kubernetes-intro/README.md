@@ -164,4 +164,5 @@ main.main()
 	/go/src/github.com/GoogleCloudPlatform/microservices-demo/src/frontend/main.go:106 +0x3e9
 ~~~
 В итоге pod не запускался из-за отсутсвия инициализированых переменных окружения
+
 https://github.com/otus-kuber-2021-03/neonlight911_platform/blob/kubernetes-intro/kubernetes-intro/frontend-pod-healthy.yaml
