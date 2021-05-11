@@ -10,8 +10,9 @@ spec:
       image: busybox:1.31.0
       command: ['sh', '-c', 'wget -O- https://tinyurl.com/otus-k8s-intro | sh']
       volumeMounts:
-        - mountPath: /app
-          name: app
+        - name: app
+          mountPath: /app
+          
   containers:
     - name: web
       image: neonlight911/otus-kuber-202103-hw:latest
@@ -21,8 +22,6 @@ spec:
       ports:
         - containerPort: 8000
           hostPort: 8000
-      livenessProbe:
-        tcpSocket: { port: 8000 }
 
   volumes:
     - name: app
