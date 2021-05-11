@@ -15,7 +15,7 @@ spec:
           
   containers:
     - name: web
-      image: greysd/kubernetes-intro:latest
+      image: neonlight911/otus-kuber-202103-hw:latest
       volumeMounts:
         - name: app
           mountPath: /app
